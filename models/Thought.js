@@ -1,5 +1,6 @@
 // Import the required dependencies
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model, } = require('mongoose');
+const reactionSchema = require('./Reaction');
 
 const thoughtSchema = new Schema(
     {
