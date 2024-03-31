@@ -1,12 +1,14 @@
 const { User } = require("../models");
 
 const UserController = {
+  
   // Get all the user data
   async getAllUsers(req, res) {
     try {
       const userData = await User.find().select("-__v");
       res.json(userData);
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },
@@ -28,6 +30,7 @@ const UserController = {
 
       res.json(user);
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },
@@ -38,6 +41,7 @@ const UserController = {
       const dbUserData = await User.create(req.body);
       res.json(dbUserData);
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },
@@ -46,9 +50,11 @@ const UserController = {
   async updateUserById(req, res) {
     try {
       // Extract user_id from the request parameters
-      const userId = req.params.id;
+      const userId = req.params.userId;
+      console.log(userId)
       // Extract the updated user data from the request parameters
       const userDataUpdate = req.body;
+      console.log(userDataUpdate)
 
       // Use findOneAndUpdate to find the user by _id and update it with the provided data
       const updatedUser = await User.findOneAndUpdate(
@@ -62,6 +68,7 @@ const UserController = {
       }
       res.json(updatedUser);
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },
@@ -80,13 +87,14 @@ const UserController = {
       }
 
       // Delete all thoughts associated with the user
-      await Thought.deleteMany({ username: deletedUser.username });
+      await Thought.deleteMany({ _id: {$in: deletedUser.thoughts } });
 
       res.json({
         message: "User and associated thoughts successfully deleted",
         deletedUser,
       });
     } catch (err) {
+      console.log(err);  
       res.status(500).json(err);
     }
   },
@@ -96,8 +104,8 @@ const UserController = {
     try {
       // Extract user_id and friend_id from the request parameters
       // In a POST req, userId would be in the URL while friendId in the body
-      const userId = req.params.userId;
-      const friendId = req.body.friendId;
+    
+      const { friendId, userId } = req.params;
 
       //Find the user by id and update the friends array with the new friend
       const userData = await User.findOneAndUpdate(
@@ -114,6 +122,7 @@ const UserController = {
       // Send the updated user data in the response
       res.json(userData);
     } catch (err) {
+        console.log(err);
       res.status(500).json(err);
     }
   },
@@ -135,7 +144,7 @@ const UserController = {
         return res.status(404).json({ message: "No user found with this id!" });
       }
 
-      // Check if friendId is removed from friend array
+      // Check if friendId is removed from friend array 
       const removed = !dbUserData.friends.includes(friendId);
 
       // Respond with success message if truthy
@@ -150,6 +159,7 @@ const UserController = {
           });
       }
     } catch (err) {
+        console.log(err);
       return res
         .status(500)
         .json({ message: "Internal server error", error: err });
