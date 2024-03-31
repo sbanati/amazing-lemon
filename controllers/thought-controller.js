@@ -38,7 +38,34 @@ const ThoughtController = {
       },
 
 
+      // Create a new thought and associate the thought with the user who created it
+      async createdThought(req, res) {
+        try {
+          // Destructure userId and the new thought from req.body
+          const {userId, ...newThought} = req.body;
 
+          // Create thought by passing the new thought object
+          const thought = await Thought.create(newThought);
+
+          // Add the created thoughts id to associated users thought array
+          const user = await User.findOneAndUpdate(
+            {_id: userId},
+            {$addToSet: {thoughts: thought._id}},
+            {new: true}
+          );
+
+          // Check if the user exists
+          if (!user) {
+            return res.status(404).json({message: 'Thought created, but no user found with that ID'});
+          }
+
+          //Respond with success
+          res.json({message: 'Thought created successfully', thought});
+        } catch (err) {
+          console.log(err);
+          res.status(500).json({message:'Internal server error', error:err});
+        }
+      },
 
 
 
