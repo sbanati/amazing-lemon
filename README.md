@@ -58,7 +58,7 @@
 This application enables users to interact with an API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list.    
 <br><br>
  
-
+<img src="public/assets/screenshot.png" alt="Insomnia showing routes">
  
 
 
@@ -98,7 +98,7 @@ This application enables users to interact with an API for a social network web 
 
 
 ### Installation
-Clone the repo below and open the project in your source code editor. Open the terminal, execute "npm install" to ensure all required packages are installed. Connect to MySQL in the same terminal and execute "source db/schema.sql" to create the database. Afterward, run "npm run seed" in the terminal to populate the tables from the data in the seeds.js file. Once this is done, initiate the application by running "npm start" in the terminal. <br>
+Clone the repo below and open the project in your source code editor. Open the terminal, execute "npm install" to ensure all required packages are installed. Setup Mongodb on your machine and optional is MongoDB Compass as a database GUI. Once this is done, initiate the application by running "npm start" in the terminal. <br>
 
 1. Clone the repo
    ```sh
@@ -127,6 +127,23 @@ Clone the repo below and open the project in your source code editor. Open the t
 <h3>Demo Video of social-network-backend.</h3>
 
 https://www.youtube.com/watch?v=3Qst3kEQlFs
+
+### The working endpoints are listed below, these are the endpoints you can test 
+
+* GET /api/user - get all users
+* GET /api/user/:userId - get a single user by ID
+* POST /api/user - create a new user
+* PUT /api/user/:userId - update a user by ID
+* DELETE /api/user/:userId - delete a user by ID
+* GET /api/thought - get all thought
+* GET /api/thought/:thoughtId - get a single thought by ID
+* POST /api/thought - create a new thought
+* PUT /api/thought/:thoughtId - update a thought by ID
+* DELETE /api/thought/:thoughtId - delete a thought by ID
+* POST /api/thought/:thoughtId/reactions - add a reaction to a thought
+* DELETE /api/thought/:thoughtId/reactions/:reactionId - remove a reaction from a thought
+* POST /api/user/:userId/friends/:friendId - add a friend to a user's friend list
+* DELETE /api/user/:userId/friends/:friendId - remove a friend from a user's friend list
 
 
 
