@@ -126,7 +126,7 @@ Clone the repo below and open the project in your source code editor. Open the t
 
 <h3>Demo Video of social-network-backend.</h3>
 
-https://www.youtube.com/watch?v=3Qst3kEQlFs
+https://youtu.be/5NpbM1jlwgI
 
 ### The working endpoints are listed below, these are the endpoints you can test 
 
