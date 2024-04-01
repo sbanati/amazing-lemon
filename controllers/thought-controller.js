@@ -39,7 +39,7 @@ const ThoughtController = {
 
 
       // Create a new thought and associate the thought with the user who created it
-      async createdThought(req, res) {
+      async createThought(req, res) {
         try {
           // Destructure userId and the new thought from req.body
           const {userId, ...newThought} = req.body;
@@ -69,11 +69,12 @@ const ThoughtController = {
 
 
       // Update thought by ID
-      async updateThought(req, res) {
+      async updateThoughtById(req, res) {
 
         try {
           // Destructuring the thoughtId and the updated thought data from req.body
-          const { thoughtId, ...updatedThoughtData} = req.body;
+          const { thoughtId } = req.params;
+          const {...updatedThoughtData } = req.body;
 
           // Update thought based on its id
           const updatedThought = await Thought.findOneAndUpdate(
@@ -81,6 +82,7 @@ const ThoughtController = {
             { $set: updatedThoughtData},
             {runValidators: true, new: true}
           );
+          console.log(updatedThought);
           
           // if updatedThought is falsey
           if (!updatedThought) {
@@ -96,7 +98,7 @@ const ThoughtController = {
 
 
       // Delete thought by ID
-      async deleteThoughtById(req, res) {
+      async deleteThought(req, res) {
         try {
           // Desctructure thoughtId from the request parameters
           const { thoughtId } = req.params
@@ -118,7 +120,7 @@ const ThoughtController = {
       },
 
       // Create a new reaction stored in a single thought's reactions array field
-      async addReaction(req, res) {
+      async createReaction(req, res) {
         try {
           // Destructure thoughtId and the new reaction from URL and req.body
           const { thoughtId } = req.params;
